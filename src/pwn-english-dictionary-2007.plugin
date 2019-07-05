@@ -1,0 +1,5 @@
+[Plugin]
+Module=pwn-english-dictionary-2007
+Name=Oxford-PWN Dictionary
+Description=The Oxford-PWN Polish-English English-Polish Dictionary
+Authors=Jakub Czartek
