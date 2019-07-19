@@ -22,6 +22,9 @@
 #include "pwn-english-dictionary-2007-window.h"
 #include "pwn-english-dictionary-2007.h"
 
+#define ID_ENGLISH_POLISH "pwn-english-polish-dictionary-2007"
+#define ID_POLISH_ENGLISH "pwn-polish-english-dictionary-2007"
+
 static void pwn_english_dictionary2007_window_iface_init (GyWindowAddinInterface *iface);
 
 struct _PwnEnglishDictionary2007Window
@@ -56,12 +59,14 @@ pwn_english_dictionary2007_window_load (GyWindowAddin *addin,
     g_critical ("%s", err->message);
 
   GyDictManager *manager = gy_window_get_dict_manager (win);
-  gy_dict_manager_insert_dict (manager,
-                               GY_DICT (pwn_english_dictionary2007_new ("pwn-english-polish-dictionary-2007")),
-                               "pwn-english-polish-dictionary-2007");
-  gy_dict_manager_insert_dict (manager,
-                               GY_DICT (pwn_english_dictionary2007_new ("pwn-polish-english-dictionary-2007")),
-                               "pwn-polish-english-dictionary-2007");
+
+  GyDict *dict = GY_DICT (pwn_english_dictionary2007_new (ID_ENGLISH_POLISH));
+  gy_dict_manager_insert_dict (manager, dict, ID_ENGLISH_POLISH);
+  g_object_unref (dict);
+
+  dict = GY_DICT (pwn_english_dictionary2007_new (ID_POLISH_ENGLISH));
+  gy_dict_manager_insert_dict (manager, dict, ID_POLISH_ENGLISH);
+  g_object_unref (dict);
 
 }
 
@@ -76,8 +81,8 @@ pwn_english_dictionary2007_window_unload (GyWindowAddin *addin,
   self->id_menu = 0;
 
   GyDictManager *manager = gy_window_get_dict_manager (win);
-  gy_dict_manager_remove_dict (manager, "pwn-english-polish-dictionary-2007");
-  gy_dict_manager_remove_dict (manager, "pwn-polish-english-dictionary-2007");
+  gy_dict_manager_remove_dict (manager, ID_ENGLISH_POLISH);
+  gy_dict_manager_remove_dict (manager, ID_POLISH_ENGLISH);
 
 }
 
