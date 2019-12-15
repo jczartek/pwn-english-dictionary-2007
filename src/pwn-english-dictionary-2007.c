@@ -284,17 +284,17 @@ skip_space (const gchar *s)
 }
 
 static gboolean
-pwn_english_dictionary2007_parse (GyDict         *self,
-                                  const gchar    *raw_text,
-                                  gint            length,
-                                  PangoAttrList **attr_list,
-                                  gchar         **text,
-                                  GError        **err)
+pwn_english_dictionary2007_parse (GyDict          *self,
+                                  const gchar     *raw_text,
+                                  gint             length,
+                                  GyTextAttrList **attr_list,
+                                  gchar          **text,
+                                  GError         **err)
 {
   GString *s = g_string_new (NULL);
   GSList *stack = NULL;
-  PangoAttribute *attr = NULL;
-  PangoAttrList *to_apply = pango_attr_list_new ();
+  GyTextAttribute *attr = NULL;
+  GyTextAttrList *to_apply = gy_text_attr_list_new ();
 
   const gchar *p, *q;
   p = q = raw_text;
@@ -325,15 +325,15 @@ pwn_english_dictionary2007_parse (GyDict         *self,
 
               if (strncmp (p, "B", q-p) == 0)
                 {
-                  attr = pango_attr_weight_new (PANGO_WEIGHT_BOLD);
-                  attr->start_index = s->len;
+                  attr = gy_text_attribute_weight_new (PANGO_WEIGHT_BOLD);
+                  gy_text_attribute_set_start_index (attr, s->len);
                   stack = g_slist_append (stack, attr);
                   attr = NULL;
                 }
               else if (strncmp (p, "BIG", q-p) == 0)
                 {
-                  attr = pango_attr_scale_new (PANGO_SCALE_LARGE);
-                  attr->start_index = s->len;
+                  attr = gy_text_attribute_scale_new (PANGO_SCALE_LARGE);
+                  gy_text_attribute_set_start_index (attr, s->len);
                   stack = g_slist_append (stack, attr);
                   attr = NULL;
                 }
@@ -347,18 +347,18 @@ pwn_english_dictionary2007_parse (GyDict         *self,
                   PangoColor color = {0,0,0};
                   pango_color_parse (&color, "#a347ba");
 
-                  attr = pango_attr_foreground_new (color.red, color.green, color.blue);
-                  attr->start_index = s->len;
+                  attr = gy_text_attribute_foreground_new (color.red, color.green, color.blue);
+                  gy_text_attribute_set_start_index (attr, s->len);
                   stack = g_slist_append (stack, attr);
                   attr = NULL;
 
-                  attr = pango_attr_weight_new (PANGO_WEIGHT_SEMIBOLD);
-                  attr->start_index = s->len;
+                  attr = gy_text_attribute_weight_new (PANGO_WEIGHT_SEMIBOLD);
+                  gy_text_attribute_set_start_index (attr, s->len);
                   stack = g_slist_append (stack, attr);
                   attr = NULL;
 
-                  attr = pango_attr_stretch_new (PANGO_STRETCH_SEMI_EXPANDED);
-                  attr->start_index = s->len;
+                  attr = gy_text_attribute_stretch_new (PANGO_STRETCH_SEMI_EXPANDED);
+                  gy_text_attribute_set_start_index (attr, s->len);
                   stack = g_slist_append (stack, attr);
                   attr = NULL;
                 }
@@ -372,15 +372,15 @@ pwn_english_dictionary2007_parse (GyDict         *self,
                 }
               else if (strncmp (p, "I", q-p) == 0)
                 {
-                  attr = pango_attr_style_new (PANGO_STYLE_ITALIC);
-                  attr->start_index = s->len;
+                  attr = gy_text_attribute_style_new (PANGO_STYLE_ITALIC);
+                  gy_text_attribute_set_start_index (attr, s->len);
                   stack = g_slist_append (stack, attr);
                   attr = NULL;
                 }
               else if (strncmp (p, "SMALL", q-p) == 0)
                 {
-                  attr = pango_attr_scale_new (PANGO_SCALE_SMALL);
-                  attr->start_index = s->len;
+                  attr = gy_text_attribute_scale_new (PANGO_SCALE_SMALL);
+                  gy_text_attribute_set_start_index (attr, s->len);
                   stack = g_slist_append (stack, attr);
                   attr = NULL;
                 }
@@ -424,18 +424,18 @@ pwn_english_dictionary2007_parse (GyDict         *self,
                 }
               else if (strncmp (p, "SUB", q-p) == 0)
                 {
-                  attr = pango_attr_weight_new (PANGO_WEIGHT_BOLD);
-                  attr->start_index = s->len;
+                  attr = gy_text_attribute_weight_new (PANGO_WEIGHT_BOLD);
+                  gy_text_attribute_set_start_index (attr, s->len);
                   stack = g_slist_append (stack, attr);
                   attr = NULL;
 
-                  attr = pango_attr_scale_new (PANGO_SCALE_LARGE);
-                  attr->start_index = s->len;
+                  attr = gy_text_attribute_scale_new (PANGO_SCALE_LARGE);
+                  gy_text_attribute_set_start_index (attr, s->len);
                   stack = g_slist_append (stack, attr);
                   attr = NULL;
 
-                  attr = pango_attr_family_new ("serif");
-                  attr->start_index = s->len;
+                  attr = gy_text_attribute_family_new ("serif");
+                  gy_text_attribute_set_start_index (attr, s->len);
                   stack = g_slist_append (stack, attr);
                   attr = NULL;
                 }
@@ -445,13 +445,13 @@ pwn_english_dictionary2007_parse (GyDict         *self,
                 }
               else if (strncmp (p, "SUP", q-p) == 0)
                 {
-                  attr = pango_attr_scale_new (PANGO_SCALE_X_SMALL);
-                  attr->start_index = s->len;
+                  attr = gy_text_attribute_scale_new (PANGO_SCALE_X_SMALL);
+                  gy_text_attribute_set_start_index (attr, s->len);
                   stack = g_slist_append (stack, attr);
                   attr = NULL;
 
-                  attr = pango_attr_rise_new (PANGO_SCALE * 6);
-                  attr->start_index = s->len;
+                  attr = gy_text_attribute_rise_new (PANGO_SCALE * 6);
+                  gy_text_attribute_set_start_index (attr, s->len);
                   stack = g_slist_append (stack, attr);
                   attr = NULL;
                 }
@@ -460,8 +460,8 @@ pwn_english_dictionary2007_parse (GyDict         *self,
                   PangoColor color = {0,0,0};
                   pango_color_parse (&color, "#1c71d8");
 
-                  attr = pango_attr_foreground_new (color.red, color.green, color.blue);
-                  attr->start_index = s->len;
+                  attr = gy_text_attribute_foreground_new (color.red, color.green, color.blue);
+                  gy_text_attribute_set_start_index (attr, s->len);
                   stack = g_slist_append (stack, attr);
                   attr = NULL;
                 }
@@ -484,8 +484,8 @@ pwn_english_dictionary2007_parse (GyDict         *self,
                   attr = last->data;
                   stack = g_slist_remove_link (stack, last);
                   g_slist_free (last);
-                  attr->end_index = s->len;
-                  pango_attr_list_insert_before (to_apply, attr);
+                  gy_text_attribute_set_end_index (attr, s->len);
+                  gy_text_attr_list_insert_before (to_apply, attr);
                   attr = NULL;
                 }
               else if (strncmp (p, "BIG", q-p) == 0)
@@ -494,8 +494,8 @@ pwn_english_dictionary2007_parse (GyDict         *self,
                   attr = last->data;
                   stack = g_slist_remove_link (stack, last);
                   g_slist_free (last);
-                  attr->end_index = s->len;
-                  pango_attr_list_insert_before (to_apply, attr);
+                  gy_text_attribute_set_end_index (attr, s->len);
+                  gy_text_attr_list_insert_before (to_apply, attr);
                   attr = NULL;
                 }
               else if (strncmp (p, "P", q-p) == 0)
@@ -508,24 +508,24 @@ pwn_english_dictionary2007_parse (GyDict         *self,
                   attr = last->data;
                   stack = g_slist_remove_link (stack, last);
                   g_slist_free (last);
-                  attr->end_index = s->len;
-                  pango_attr_list_insert_before (to_apply, attr);
+                  gy_text_attribute_set_end_index (attr, s->len);
+                  gy_text_attr_list_insert_before (to_apply, attr);
                   attr = NULL;
 
                   last = g_slist_last (stack);
                   attr = last->data;
                   stack = g_slist_remove_link (stack, last);
                   g_slist_free (last);
-                  attr->end_index = s->len;
-                  pango_attr_list_insert_before (to_apply, attr);
+                  gy_text_attribute_set_end_index (attr, s->len);
+                  gy_text_attr_list_insert_before (to_apply, attr);
                   attr = NULL;
 
                   last = g_slist_last (stack);
                   attr = last->data;
                   stack = g_slist_remove_link (stack, last);
                   g_slist_free (last);
-                  attr->end_index = s->len;
-                  pango_attr_list_insert_before (to_apply, attr);
+                  gy_text_attribute_set_end_index (attr, s->len);
+                  gy_text_attr_list_insert_before (to_apply, attr);
                   attr = NULL;
                 }
               else if (strncmp(p, "GB", q-p) == 0)
@@ -540,8 +540,8 @@ pwn_english_dictionary2007_parse (GyDict         *self,
                   attr = last->data;
                   stack = g_slist_remove_link (stack, last);
                   g_slist_free (last);
-                  attr->end_index = s->len;
-                  pango_attr_list_insert_before (to_apply, attr);
+                  gy_text_attribute_set_end_index (attr, s->len);
+                  gy_text_attr_list_insert_before (to_apply, attr);
                   attr = NULL;
                 }
               else if (strncmp (p, "SMALL", q-p) == 0)
@@ -550,8 +550,8 @@ pwn_english_dictionary2007_parse (GyDict         *self,
                   attr = last->data;
                   stack = g_slist_remove_link (stack, last);
                   g_slist_free (last);
-                  attr->end_index = s->len;
-                  pango_attr_list_insert_before (to_apply, attr);
+                  gy_text_attribute_set_end_index (attr, s->len);
+                  gy_text_attr_list_insert_before (to_apply, attr);
                   attr = NULL;
                 }
               else if (strncmp (p, "SUB", q-p) == 0)
@@ -560,24 +560,24 @@ pwn_english_dictionary2007_parse (GyDict         *self,
                   attr = last->data;
                   stack = g_slist_remove_link (stack, last);
                   g_slist_free (last);
-                  attr->end_index = s->len;
-                  pango_attr_list_insert_before (to_apply, attr);
+                  gy_text_attribute_set_end_index (attr, s->len);
+                  gy_text_attr_list_insert_before (to_apply, attr);
                   attr = NULL;
 
                   last = g_slist_last (stack);
                   attr = last->data;
                   stack = g_slist_remove_link (stack, last);
                   g_slist_free (last);
-                  attr->end_index = s->len;
-                  pango_attr_list_insert_before (to_apply, attr);
+                  gy_text_attribute_set_end_index (attr, s->len);
+                  gy_text_attr_list_insert_before (to_apply, attr);
                   attr = NULL;
 
                   last = g_slist_last (stack);
                   attr = last->data;
                   stack = g_slist_remove_link (stack, last);
                   g_slist_free (last);
-                  attr->end_index = s->len;
-                  pango_attr_list_insert_before (to_apply, attr);
+                  gy_text_attribute_set_end_index (attr, s->len);
+                  gy_text_attr_list_insert_before (to_apply, attr);
                   attr = NULL;
                 }
               else if (strncmp (p, "SUP", q-p) == 0)
@@ -586,16 +586,16 @@ pwn_english_dictionary2007_parse (GyDict         *self,
                   attr = last->data;
                   stack = g_slist_remove_link (stack, last);
                   g_slist_free (last);
-                  attr->end_index = s->len;
-                  pango_attr_list_insert_before (to_apply, attr);
+                  gy_text_attribute_set_end_index (attr, s->len);
+                  gy_text_attr_list_insert_before (to_apply, attr);
                   attr = NULL;
 
                   last = g_slist_last (stack);
                   attr = last->data;
                   stack = g_slist_remove_link (stack, last);
                   g_slist_free (last);
-                  attr->end_index = s->len;
-                  pango_attr_list_insert_before (to_apply, attr);
+                  gy_text_attribute_set_end_index (attr, s->len);
+                  gy_text_attr_list_insert_before (to_apply, attr);
                   attr = NULL;
                 }
               else if (strncmp (p, "A", q-p) == 0)
@@ -604,8 +604,8 @@ pwn_english_dictionary2007_parse (GyDict         *self,
                   attr = last->data;
                   stack = g_slist_remove_link (stack, last);
                   g_slist_free (last);
-                  attr->end_index = s->len;
-                  pango_attr_list_insert_before (to_apply, attr);
+                  gy_text_attribute_set_end_index (attr, s->len);
+                  gy_text_attr_list_insert_before (to_apply, attr);
                   attr = NULL;
                 }
               else
