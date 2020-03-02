@@ -52,8 +52,8 @@ pwn_english_dictionary2007_prefs_load (GyPrefsViewAddin *self,
   GtkWidget *widget = NULL;
   GtkSizeGroup *path_group = NULL;
 
-  path_angpol = g_strdup_printf ("/org/gtk/gydict/plugin/%s/", "pwn-english-polish-dictionary-2007");
-  path_polang = g_strdup_printf ("/org/gtk/gydict/plugin/%s/", "pwn-polish-english-dictionary-2007");
+  path_angpol = g_strdup_printf ("/org/gtk/gydict/path/%s/", "pwn-english-polish-dictionary-2007");
+  path_polang = g_strdup_printf ("/org/gtk/gydict/path/%s/", "pwn-polish-english-dictionary-2007");
 
   PWN_ENGLISH_DICTIONARY2007_PREFS (self)->ids[0] =
     dzl_preferences_add_file_chooser (DZL_PREFERENCES (prefs), "dictionaries", "paths", "org.gtk.gydict.path",

@@ -60,11 +60,15 @@ pwn_english_dictionary2007_window_load (GyWindowAddin *addin,
 
   GyDictManager *manager = gy_window_get_dict_manager (win);
 
-  GyDict *dict = GY_DICT (pwn_english_dictionary2007_new (ID_ENGLISH_POLISH));
+  GyDict *dict = gy_dict_create_dictionary (PWN_TYPE_ENGLISH_DICTIONARY2007,
+                                            ID_ENGLISH_POLISH, TRUE,
+                                            NULL, NULL, NULL);
   gy_dict_manager_insert_dict (manager, dict, ID_ENGLISH_POLISH);
   g_object_unref (dict);
 
-  dict = GY_DICT (pwn_english_dictionary2007_new (ID_POLISH_ENGLISH));
+  dict = gy_dict_create_dictionary (PWN_TYPE_ENGLISH_DICTIONARY2007,
+                                    ID_POLISH_ENGLISH, TRUE,
+                                    NULL, NULL, NULL);
   gy_dict_manager_insert_dict (manager, dict, ID_POLISH_ENGLISH);
   g_object_unref (dict);
 

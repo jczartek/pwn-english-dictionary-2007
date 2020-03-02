@@ -56,9 +56,7 @@ pwn_english_dictionary2007_map (GyDict  *dict,
   guint32 word_count = 0, index_base = 0, word_base = 0;
   g_autofree guint32 *offsets = NULL;
   g_autoptr(GFileInputStream) in = NULL;
-  g_autoptr(GSettings) settings = NULL;
-  g_autofree gchar *path = NULL;
-  g_autofree gchar *settings_path = NULL;
+  const gchar *path = NULL;
   const gchar *id = NULL;
   gchar buf[SIZE_BUFFER];
   gchar entry[SIZE_ENTRY];
@@ -71,9 +69,7 @@ pwn_english_dictionary2007_map (GyDict  *dict,
 
   g_object_get (dict, "identifier", &id, NULL);
 
-  settings_path = g_strdup_printf ("/org/gtk/gydict/plugin/%s/", id);
-  settings = g_settings_new_with_path ("org.gtk.gydict.path", settings_path);
-  path = g_settings_get_string (settings, "path");
+  path = gy_dict_get_path(dict);
 
   if (self->file)
     g_object_unref (self->file);
